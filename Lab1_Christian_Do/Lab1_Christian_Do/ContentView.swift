@@ -60,6 +60,7 @@ struct ContentView: View {
                     }
                 }
                 .padding()
+                .padding()
                 
                 // Show the correct or incorrect icon after selection
                 if let correct = isCorrect {
