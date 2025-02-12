@@ -41,7 +41,7 @@ struct ContentView: View {
                     .padding()
                 
                 Text("\(number)")
-                    .font(.system(size: 50, weight: .bold))
+                    .font(.system(size: 70, weight: .bold))
                     .padding()
                 
                 HStack {
