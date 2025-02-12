@@ -63,7 +63,7 @@ struct ContentView: View {
                 
                 // Show the correct or incorrect icon after selection
                 if let correct = isCorrect {
-                    Image(systemName: correct ? "checkmark.circle.fill" : "xmark.circle.fill")
+                    Image(systemName: correct ? "checkmark" : "xmark")
                         .resizable()
                         .frame(width: 50, height: 50)
                         .foregroundColor(correct ? .green : .red)
