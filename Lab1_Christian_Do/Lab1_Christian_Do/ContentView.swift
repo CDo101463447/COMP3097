@@ -61,11 +61,19 @@ struct ContentView: View {
                 }
                 .padding()
                 
+                // Show the correct or incorrect icon after selection
                 if let correct = isCorrect {
                     Image(systemName: correct ? "checkmark.circle.fill" : "xmark.circle.fill")
                         .resizable()
                         .frame(width: 50, height: 50)
                         .foregroundColor(correct ? .green : .red)
+                        .transition(.opacity)
+                        .onAppear {
+                            // Delay resetting the icon
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                nextNumber()
+                            }
+                        }
                 }
             }
         }
@@ -98,7 +106,6 @@ struct ContentView: View {
                 wrongAnswers += 1
                 isCorrect = false
             }
-            nextNumber()
         }
     }
     
