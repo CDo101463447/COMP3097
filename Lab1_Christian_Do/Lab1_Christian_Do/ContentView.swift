@@ -10,6 +10,7 @@ struct ContentView: View {
     
     @State private var timer: Timer?
     @State private var timeRemaining = 5  // Timer countdown
+    @State private var isTimeRunningOut = false // Flag to turn the timer text red
     
     @State private var gameStarted = false
     @State private var gameEnded = false // Track if game is ended
@@ -30,6 +31,7 @@ struct ContentView: View {
             if gameStarted && !gameEnded {
                 Text("Time Remaining: \(timeRemaining)s")
                     .font(.title2)
+                    .foregroundColor(isTimeRunningOut ? .red : .black)
                     .padding()
             }
             
@@ -138,7 +140,11 @@ struct ContentView: View {
         if !gameEnded {
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 if gameStarted && !gameEnded && timeRemaining > 0 {
+                    isTimeRunningOut = false
                     timeRemaining -= 1
+                    if timeRemaining <= 2 {
+                        isTimeRunningOut = true
+                    }
                 } else if timeRemaining == 0 {
                     wrongAnswers += 1
                     nextNumber()
