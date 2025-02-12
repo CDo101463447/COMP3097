@@ -94,7 +94,8 @@ struct ContentView: View {
         .alert(isPresented: $showResultDialog) {
             Alert(
                 title: Text("Results"),
-                message: Text("Correct: \(correctAnswers)\nWrong: \(wrongAnswers)"),
+                message: Text("Correct: \(correctAnswers) \(correctAnswers > 0 ? "✅" : "")\nWrong: \(wrongAnswers) \(wrongAnswers > 0 ? "❌" : "")")
+                        .foregroundColor(correctAnswers > 0 ? .green : .red),
                 dismissButton: .default(Text("OK"))
             )
         }
