@@ -19,13 +19,21 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
+            Text("")
+                .font(.largeTitle)
+                .bold()
+            
+            Text("Is this number prime?")
+                .font(.title2)
+                .padding()
+            
+            Text("\(number)")
+                .font(.system(size: 50, weight:
+                        .bold))
+                .padding()
+            
+            .padding()
+        }}
 }
 
 #Preview {
