@@ -82,12 +82,29 @@ struct ContentView: View {
             
             // Show result dialog after 10 attempts
             if gameEnded {
-                Text("Game Over!")
+                Text("Thanks for playing!")
                     .font(.title)
-                    .foregroundColor(.red)
-                Text("Correct: \(correctAnswers)\nWrong: \(wrongAnswers)")
-                    .font(.title2)
-                    .padding()
+                    .foregroundColor(.blue)
+                
+                HStack {
+                    Text("Correct: ")
+                        .font(.title2)
+                        .foregroundColor(.green)
+                    Text("\(correctAnswers)")
+                        .font(.title)
+                        .foregroundColor(.black)
+                }
+                .padding()
+
+                HStack {
+                    Text("Wrong: ")
+                        .font(.title2)
+                        .foregroundColor(.red)
+                    Text("\(wrongAnswers)")
+                        .font(.title)
+                        .foregroundColor(.black)
+                }
+                .padding()
             }
         }
         .onAppear(perform: startTimer)
