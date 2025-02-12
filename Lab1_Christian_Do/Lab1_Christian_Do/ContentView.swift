@@ -27,7 +27,7 @@ struct ContentView: View {
             .padding()
             
             // Timer Display
-            if gameStarted {
+            if gameStarted && !gameEnded {
                 Text("Time Remaining: \(timeRemaining)s")
                     .font(.title2)
                     .padding()
@@ -76,6 +76,16 @@ struct ContentView: View {
                         }
                 }
             }
+            
+            // Show result dialog after 10 attempts
+            if gameEnded {
+                Text("Game Over!")
+                    .font(.title)
+                    .foregroundColor(.red)
+                Text("Correct: \(correctAnswers)\nWrong: \(wrongAnswers)")
+                    .font(.title2)
+                    .padding()
+            }
         }
         .onAppear(perform: startTimer)
         .alert(isPresented: $showResultDialog) {
@@ -113,6 +123,7 @@ struct ContentView: View {
         if attempts >= 10 {
             gameEnded = true
             showResultDialog = true
+            stopTimer() // Stop the timer when the game ends
             return
         }
         
@@ -123,12 +134,14 @@ struct ContentView: View {
     }
     
     func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            if gameStarted && !gameEnded && timeRemaining > 0 {
-                timeRemaining -= 1
-            } else if timeRemaining == 0 {
-                wrongAnswers += 1
-                nextNumber()
+        if !gameEnded {
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                if gameStarted && !gameEnded && timeRemaining > 0 {
+                    timeRemaining -= 1
+                } else if timeRemaining == 0 {
+                    wrongAnswers += 1
+                    nextNumber()
+                }
             }
         }
     }
@@ -137,6 +150,10 @@ struct ContentView: View {
         timeRemaining = 5  // Reset timer to 5 seconds
         timer?.invalidate()  // Stop the old timer
         startTimer()  // Start the new timer
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()  // Ensure the timer stops when game ends
     }
     
     func isNumberPrime(_ n: Int) -> Bool {
