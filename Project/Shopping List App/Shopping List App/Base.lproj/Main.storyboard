@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gip-R6-W3C">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Add-->
+        <scene sceneID="quZ-MO-geg">
+            <objects>
+                <viewController id="lWz-0x-YCr" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rpR-aQ-qRR">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="uEE-uP-V73"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Add" image="plus" catalog="system" id="4J0-gR-RpS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VCe-J8-gFY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1112" y="229"/>
+        </scene>
+        <!--Cart-->
+        <scene sceneID="DcS-H4-NfL">
+            <objects>
+                <viewController id="SKG-Vx-szt" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EB7-20-Kva">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="q6P-BI-BIT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Cart" image="cart" catalog="system" selectedImage="cart" id="5dT-Ur-3AA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4kP-x6-OLC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2547" y="229"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="KZ7-3k-rom">
+            <objects>
+                <viewController id="75A-bh-6eB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Kr8-8p-dXw">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="McJ-ma-HxG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Home" image="homekit" catalog="system" selectedImage="homekit" id="wZP-Rg-RTA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7IT-wY-Bde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="402" y="229"/>
+        </scene>
+        <!--Category-->
+        <scene sceneID="e8d-0u-qKJ">
+            <objects>
+                <viewController id="Z0o-kz-o0N" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Q1b-Rm-f6U">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="IPx-bS-AVV"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Category" image="folder" catalog="system" selectedImage="folder" id="lKS-JS-DTe"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OFZ-gY-EaT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1833" y="229"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="qFU-Ar-gI1">
+            <objects>
+                <tabBarController id="gip-R6-W3C" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="O3R-Cc-H37">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="75A-bh-6eB" kind="relationship" relationship="viewControllers" id="rYh-PF-mwZ"/>
+                        <segue destination="lWz-0x-YCr" kind="relationship" relationship="viewControllers" id="CKh-jJ-jQl"/>
+                        <segue destination="Z0o-kz-o0N" kind="relationship" relationship="viewControllers" id="FKr-vC-eiE"/>
+                        <segue destination="SKG-Vx-szt" kind="relationship" relationship="viewControllers" id="fzp-0p-rBI"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SKB-4u-EsX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1506" y="-522"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="cart" catalog="system" width="128" height="102"/>
+        <image name="folder" catalog="system" width="128" height="96"/>
+        <image name="homekit" catalog="system" width="128" height="104"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
