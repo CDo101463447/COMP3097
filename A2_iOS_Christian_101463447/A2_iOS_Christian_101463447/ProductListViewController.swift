@@ -14,63 +14,63 @@ class ProductListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var addProductTapped: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var previousButton: UIButton!
+    
     var products: [Product] = []
-
+    var currentIndex = 0  // Track the current product
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        tableView.delegate = self  // Add this
-        tableView.dataSource = self  // Add this
+        tableView.delegate = self
+        tableView.dataSource = self
+        fetchProducts()
+        
+        if !products.isEmpty {
+            displayProductAtIndex(index: currentIndex)
+        }
+        updateNavigationButtons()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchProducts()
     }
 
-    // Fetch the products from Core Data
     func fetchProducts() {
         let fetchRequest: NSFetchRequest<Product> = Product.fetchRequest()
-        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         do {
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             products = try context.fetch(fetchRequest)
-            print("Fetched products: \(products)")
             tableView.reloadData()
         } catch {
-            print("Error fetching data")
+            print("Error fetching data: \(error)")
         }
     }
 
-    // Reload data when returning to the view
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchProducts() // Refresh the product list when returning to this screen
-    }
-
-    // Table view delegate and data source methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Number of products: \(products.count)")  // Debugging line
         return products.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Dequeue the cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath)
-
-        // Get the product for the current index path
         let product = products[indexPath.row]
 
-        // Find the labels in the cell (assuming you have outlets for them)
         if let productNameLabel = cell.viewWithTag(1) as? UILabel,
-           let productDescriptionLabel = cell.viewWithTag(2) as? UILabel {
-            // Assign the product name and description to the labels
+           let productDescriptionLabel = cell.viewWithTag(2) as? UILabel,
+           let productPriceLabel = cell.viewWithTag(3) as? UILabel,
+           let productProviderLabel = cell.viewWithTag(4) as? UILabel {
+
             productNameLabel.text = product.productName
             productDescriptionLabel.text = product.productDescription
+            productPriceLabel.text = "$\(product.productPrice?.stringValue ?? "0.00")"
+            productProviderLabel.text = product.productProvider ?? "Unknown"
         }
 
         return cell
     }
 
-
-    // Search functionality to filter products
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             fetchProducts()
@@ -79,42 +79,62 @@ class ProductListViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
 
-    // Filter the products based on search text
     func filterProducts(searchText: String) {
         let fetchRequest: NSFetchRequest<Product> = Product.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "productName CONTAINS[cd] %@ OR productDescription CONTAINS[cd] %@", searchText, searchText)
 
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         do {
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             products = try context.fetch(fetchRequest)
             tableView.reloadData()
         } catch {
-            print("Error fetching filtered data")
+            print("Error fetching filtered data: \(error)")
         }
     }
 
-    // Function to add 10 sample products to Core Data
-    func addSampleProducts() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    func displayProductAtIndex(index: Int) {
+        guard index >= 0, index < products.count else { return }
         
-        // Check if there are already products in Core Data, if not, add sample products
-        let fetchRequest: NSFetchRequest<Product> = Product.fetchRequest()
-        
-        do {
-            let existingProducts = try context.fetch(fetchRequest)
-            if existingProducts.isEmpty {  // Only add if no products exist
-                for i in 1...10 {
-                    let product = Product(context: context)
-                    product.productName = "Product \(i)"
-                    product.productDescription = "Description for product \(i)"
-                    // Wrap the Double value in NSDecimalNumber
-                    product.productPrice = NSDecimalNumber(value: Double(i * 10))
-                }
-                try context.save()  // Save the new products to Core Data
-            }
-        } catch {
-            print("Failed to add sample products: \(error)")
+        let indexPath = IndexPath(row: index, section: 0)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+        updateNavigationButtons()
+    }
+
+    func updateNavigationButtons() {
+        previousButton.isEnabled = currentIndex > 0
+        nextButton.isEnabled = currentIndex < products.count - 1
+    }
+
+    // MARK: - Show product details in an alert
+    func showProductDetails(product: Product) {
+        let alertController = UIAlertController(title: product.productName, message: """
+            Description: \(product.productDescription ?? "No description available.")
+            Price: $\(product.productPrice?.stringValue ?? "0.00")
+            Provider: \(product.productProvider ?? "Unknown")
+        """, preferredStyle: .alert)
+
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+        present(alertController, animated: true, completion: nil)
+    }
+
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let product = products[indexPath.row]
+        showProductDetails(product: product)
+    }
+
+    @IBAction func previousProductTapped(_ sender: UIButton) {
+        if currentIndex > 0 {
+            currentIndex -= 1
+            displayProductAtIndex(index: currentIndex)
         }
     }
 
+    @IBAction func nextProductTapped(_ sender: UIButton) {
+        if currentIndex < products.count - 1 {
+            currentIndex += 1
+            displayProductAtIndex(index: currentIndex)
+        }
+    }
 }
