@@ -48,7 +48,7 @@ class AddProductViewController: UIViewController {
         do {
             try context.save()
             print("Product added successfully!")
-            // Dismiss the view controller after saving
+            // Dismiss the view controller and go back to ProductListViewController
             self.navigationController?.popViewController(animated: true)
         } catch {
             print("Failed to save product: \(error)")
