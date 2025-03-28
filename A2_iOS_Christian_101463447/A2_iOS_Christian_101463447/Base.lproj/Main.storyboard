@@ -72,7 +72,7 @@
         <!--Add Product-->
         <scene sceneID="5CD-eA-CAs">
             <objects>
-                <viewController title="Add Product" id="HwI-AN-1y7" sceneMemberID="viewController">
+                <viewController title="Add Product" id="HwI-AN-1y7" customClass="AddProductViewController" customModule="A2_iOS_Christian_101463447" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bNM-9x-0bW">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -139,6 +139,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="HwI-AN-1y7" eventType="touchUpInside" id="UHO-YD-dex"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULj-VM-QVQ">
                                 <rect key="frame" x="0.0" y="74" width="88" height="35"/>
@@ -155,6 +158,12 @@
                         <accessibility key="accessibilityConfiguration" identifier="addProduct"/>
                     </view>
                     <navigationItem key="navigationItem" id="sfn-3p-zZZ"/>
+                    <connections>
+                        <outlet property="productDescriptionTextField" destination="Sby-rg-oMy" id="24M-kc-Bep"/>
+                        <outlet property="productNameTextField" destination="cqL-mr-8rJ" id="Jc8-pS-8Xh"/>
+                        <outlet property="productPriceTextField" destination="j2F-jP-Y5M" id="j3b-IL-aNm"/>
+                        <outlet property="productProviderTextField" destination="6lC-yi-E8d" id="ABc-gJ-PdV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="faK-Xw-3Da" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
