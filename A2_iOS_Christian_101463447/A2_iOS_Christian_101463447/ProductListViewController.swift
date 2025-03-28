@@ -10,7 +10,8 @@ import UIKit
 import CoreData
 
 class ProductListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-
+    @IBOutlet weak var addProductTapped: UIButton!
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
 
